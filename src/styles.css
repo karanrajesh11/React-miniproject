@@ -1,0 +1,283 @@
+:root {
+    --color1: 255, 60, 180;  
+    --color2: 190, 30, 255;  
+    --color3: 100, 180, 255; 
+    --color4: 255, 80, 80;  
+    --color5: 255, 200, 80;  
+    --blending: screen; 
+}
+
+body {
+    font-family: sans-serif;
+    background: linear-gradient(40deg, rgb(64, 0, 91), rgb(36, 0, 72), rgb(8, 0, 20)); 
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://www.transparenttextures.com/patterns/noisy-grid.png");
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.blob {
+    position: fixed;
+    width: 50vw;
+    height: 50vw;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.9;
+    mix-blend-mode: hard-light;
+    animation: blobMove 6s infinite alternate ease-in-out;
+    background: radial-gradient(circle, 
+        rgba(255, 0, 150, 0.8) 20%, 
+        rgba(255, 100, 200, 0.7) 40%, 
+        rgba(200, 50, 255, 0.6) 60%, 
+        rgba(150, 0, 255, 0.5) 80%, 
+        rgba(100, 0, 200, 0.4) 100%
+    );
+}
+
+@keyframes blobMove {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(-20vw, 10vh) scale(1.3);
+    }
+    50% {
+        transform: translate(15vw, -15vh) scale(1.1);
+    }
+    75% {
+        transform: translate(-10vw, -20vh) scale(1.2);
+    }
+    100% {
+        transform: translate(20vw, 15vh) scale(1);
+    }
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 4px solid white;
+    display: inline-block;
+    max-width: fit-content; 
+    animation: typing 4s steps(30, end) forwards, 
+               blink 0.75s step-end infinite, 
+               glitch 1s infinite;
+}
+
+@keyframes typing {
+    from { max-width: 0; }
+    to { max-width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+@keyframes glitch {
+    0% { text-shadow: 2px 2px red; }
+    25% { text-shadow: -2px -2px blue; }
+    50% { text-shadow: 2px -2px green; }
+    75% { text-shadow: -2px 2px yellow; }
+    100% { text-shadow: 2px 2px red; }
+}
+
+.social-buttons {
+    display: flex;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.social-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.social-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.social-button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.23);
+}
+
+.container {
+    max-width: 1200px;
+    margin-top: 100px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movie-container {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding-top: 50px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.movie-card {
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    text-align: center;
+}
+
+.movie-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(140, 0, 255, 0.8);
+}
+
+.movie-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay h3 {
+    font-size: 1.4rem;
+    color: rgb(229, 229, 229);
+    font-weight: bold;
+}
+
+.overlay p {
+    font-size: 1rem;
+    color: #dddddd;
+}
+
+
+
+@media (max-width: 1024px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-grid {
+        grid-template-columns: repeat(1, 1fr); 
+    }
+}
+.fullscreen-video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .fullscreen-video {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+  }
+  
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #222;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .fullscreen-video {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+  }
+  
